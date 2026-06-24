@@ -1,98 +1,346 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# AI Task Manager Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend service for AI Task Manager built with NestJS, MongoDB, Redis, and Gemini AI.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+GitHub Repository: https://github.com/raj0811/Ai-task-manager-backend
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Overview
 
-## Project setup
+AI Task Manager Backend provides:
 
-```bash
-$ npm install
+* User Authentication using JWT
+* Project Management
+* Task Management
+* AI-generated task summaries using Gemini AI
+* Redis caching for optimized performance
+* MongoDB database
+* Docker support
+
+---
+
+## Tech Stack
+
+* NestJS
+* TypeScript
+* MongoDB
+* Mongoose
+* Redis
+* JWT Authentication
+* Gemini AI
+* Docker
+* Jest
+
+---
+
+## Features
+
+### Authentication
+
+* User Signup
+* User Login
+* JWT-based Authorization
+* Protected APIs
+
+### Project Management
+
+* Create Project
+* Update Project
+* Delete Project
+* Fetch Projects
+
+### Task Management
+
+* Create Task
+* Update Task
+* Delete Task
+* Update Task Status
+* Fetch Tasks with Filters
+* Pagination Support
+
+### AI Integration
+
+Generate professional task summaries using Gemini AI.
+
+### Redis Caching
+
+Implemented Redis caching for:
+
+* Project listing
+* Task listing
+
+Automatic cache invalidation on:
+
+* Create
+* Update
+* Delete operations
+
+---
+
+## Environment Variables
+
+Create a `.env` file:
+
+```env
+PORT=4000
+
+MONGO_URI=<mongodb_connection_string>
+
+JWT_SECRET=<jwt_secret>
+
+GEMINI_API_KEY=<gemini_api_key>
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
 ```
 
-## Compile and run the project
+For Docker:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```env
+REDIS_HOST=redis
+REDIS_PORT=6379
 ```
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## Project Structure
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```txt
+src
+│
+├── user
+│   ├── user.controller.ts
+│   ├── user.service.ts
+│
+├── project
+│   ├── project.controller.ts
+│   ├── project.service.ts
+│
+├── task
+│   ├── task.controller.ts
+│   ├── task.service.ts
+│
+├── redis
+│   ├── redis.module.ts
+│   ├── redis.service.ts
+│
+├── database
+│   ├── Schema
+│   ├── database.module.ts
+│   └── database.service.ts
+│
+├── AuthGuards
+│
+├── app.module.ts
+└── main.ts
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Installation
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Clone Repository
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+git clone <repository_url>
+
+cd fastigo.ai
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Install Dependencies
 
-## Resources
+```bash
+npm install
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## Run Application
 
-## Support
+Development
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm run start:dev
+```
 
-## Stay in touch
+Production
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm run build
 
-## License
+npm run start:prod
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Application runs on:
+
+```txt
+http://localhost:4000
+```
+
+---
+
+## API Endpoints
+
+### Authentication
+
+#### Create User
+
+```http
+POST /user/create
+```
+
+#### Login User
+
+```http
+POST /user/login
+```
+
+---
+
+### Projects
+
+#### Create Project
+
+```http
+POST /project/create
+```
+
+#### Update Project
+
+```http
+PUT /project/update/:id
+```
+
+#### Delete Project
+
+```http
+DELETE /project/delete/:id
+```
+
+#### Fetch Projects
+
+```http
+GET /project/fetch-all
+```
+
+---
+
+### Tasks
+
+#### Generate AI Summary
+
+```http
+POST /task/generate-summary
+```
+
+#### Create Task
+
+```http
+POST /task/create
+```
+
+#### Update Task
+
+```http
+PATCH /task/:taskId
+```
+
+#### Delete Task
+
+```http
+DELETE /task/delete/:taskId
+```
+
+#### Update Task Status
+
+```http
+PATCH /task/:taskId/status
+```
+
+#### Fetch Tasks
+
+```http
+GET /task/fetch-all
+```
+
+Supported Filters:
+
+* status
+* search
+* startDate
+* endDate
+* dueStart
+* dueEnd
+* page
+* limit
+
+---
+
+## Testing
+
+Run Tests
+
+```bash
+npm run test
+```
+
+Watch Mode
+
+```bash
+npm run test:watch
+```
+
+Coverage
+
+```bash
+npm run test:cov
+```
+
+---
+
+## Docker
+
+Build Image
+
+```bash
+docker build -t ai-task-manager-backend .
+```
+
+Run Container
+
+```bash
+docker run -p 4000:4000 ai-task-manager-backend
+```
+
+---
+
+## Performance Optimizations
+
+* Redis Caching
+* Cache Invalidation Strategy
+* Pagination
+* MongoDB Query Optimization
+* Concurrent Query Execution using Promise.all
+
+---
+
+## Security
+
+* JWT Authentication
+* Protected Routes
+* User Ownership Validation
+* Request Validation
+* Secure Environment Variables
+
+---
+
+## Future Enhancements
+
+* Refresh Tokens
+* Role Based Access Control
+* Email Notifications
+* Task Attachments
+* Activity Logs
+* Team Collaboration
+* Real-time Updates using WebSockets
