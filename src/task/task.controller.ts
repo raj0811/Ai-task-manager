@@ -11,9 +11,9 @@ import {
     Delete,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
-import { JwtAuthGuard } from 'src/AuthGuards/user.auth.guard';
-import { TaskStatus } from 'src/database/Schema/task.schema';
-import { RedisService } from 'src/redis/redis.service';
+import { JwtAuthGuard } from '../AuthGuards/user.auth.guard';
+import { TaskStatus } from '../database/Schema/task.schema';
+import { RedisService } from '../redis/redis.service';
 
 @Controller('task')
 export class TaskController {
@@ -63,36 +63,41 @@ export class TaskController {
 
 
     @Patch(':taskId')
+    @UseGuards(JwtAuthGuard)
     async editTask(
         @Param('taskId') taskId: string,
         @Body('title') title: string,
         @Body('description') description: string,
         @Body('summary') summary: string,
         @Body('dueDate') dueDate: string,
-        @Req() req,
+        @Req() req: any,
     ) {
+        console.log(req.user);
+
         return this.taskService.editTask(
             taskId,
             title,
             description,
             summary,
-            req.user._id,
+            req.user.id,
             dueDate,
         );
     }
 
-    @Delete(':taskId')
+    @Delete('/delete/:taskId')
+    @UseGuards(JwtAuthGuard)
     async deleteTask(
         @Param('taskId') taskId: string,
         @Req() req,
     ) {
         return this.taskService.deleteTask(
             taskId,
-            req.user._id,
+            req.user.id,
         );
     }
 
     @Patch(':taskId/status')
+    @UseGuards(JwtAuthGuard)
     async updateStatus(
         @Param('taskId') taskId: string,
         @Body('status') status: TaskStatus,
@@ -101,7 +106,7 @@ export class TaskController {
         return this.taskService.updateTaskStatus(
             taskId,
             status,
-            req.user._id,
+            req.user.id,
         );
     }
 }

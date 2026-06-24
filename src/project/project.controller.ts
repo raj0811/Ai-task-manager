@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { ProjectService } from './project.service';
-import { JwtAuthGuard } from 'src/AuthGuards/user.auth.guard';
+import { JwtAuthGuard } from '../AuthGuards/user.auth.guard';
 
 @Controller('project')
 export class ProjectController {

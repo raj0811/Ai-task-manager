@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
-import { DatabaseModule } from 'src/database/database.module';
-import { UserModule } from 'src/user/user.module';
+import { DatabaseModule } from '../database/database.module';
+import { UserModule } from '../user/user.module';
+import { RedisModule } from '../redis/redis.module';
 
 @Module({
-  imports: [DatabaseModule, UserModule],
+  imports: [DatabaseModule, UserModule, RedisModule],
   providers: [ProjectService],
   controllers: [ProjectController]
 })

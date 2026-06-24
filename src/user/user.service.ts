@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/database/database.service';
-import { CreateUserDto, LoginUserDto } from 'src/dto/dto';
+import { DatabaseService } from '../database/database.service';
+import { CreateUserDto, LoginUserDto } from '../dto/dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken'
 @Injectable()

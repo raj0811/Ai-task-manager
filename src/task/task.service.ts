@@ -1,9 +1,9 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from '../database/database.service';
 import { GoogleGenAI } from '@google/genai';
 import { Types } from 'mongoose'
-import { TaskStatus } from 'src/database/Schema/task.schema';
-import { RedisService } from 'src/redis/redis.service';
+import { TaskStatus } from '../database/Schema/task.schema';
+import { RedisService } from '../redis/redis.service';
 
 @Injectable()
 export class TaskService {
@@ -80,6 +80,7 @@ Return only the summary text.
                 dueDate: new Date(dueDate),
                 projectId: new Types.ObjectId(projectId)
             })
+            await this.redisService.delPattern(`tasks:${user}:*`);
             return task
         } catch (e) {
             throw e
@@ -115,7 +116,7 @@ Return only the summary text.
             }
 
             await task.save();
-
+            await this.redisService.delPattern(`tasks:${userId}:*`);
             return task;
         } catch (e) {
             throw e
@@ -127,6 +128,8 @@ Return only the summary text.
         userId: string,
     ) {
         try {
+            console.log({ taskId, userId });
+
             const task =
                 await this.databaseService.taskModel.findOneAndDelete({
                     _id: new Types.ObjectId(taskId),
@@ -177,6 +180,8 @@ Return only the summary text.
 
             task.status = status;
             await task.save();
+            await this.redisService.delPattern(`tasks:${userId}:*`);
+
 
             return {
                 success: true,
